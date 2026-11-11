@@ -122,6 +122,26 @@ details.more[open] summary::after{content:" ▴"}
 .src-list{font-size:.875rem; padding-left:1.1em; margin:6px 0 0}
 .btn-link{display:inline-block; margin-top:8px; font-weight:700; text-decoration:none; background:var(--bg); color:var(--accent); border-radius:10px; padding:10px 14px}
 
+/* 책 · 홈페이지 */
+.adbar{background:var(--ink-1)}
+.adbar div{max-width:720px; margin:0 auto; padding:8px 16px; display:flex; gap:8px; justify-content:flex-end; flex-wrap:wrap}
+.adbar a{font-size:.8125rem; font-weight:700; text-decoration:none; border-radius:999px; padding:7px 14px; white-space:nowrap; color:var(--surface); box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.adbar a.bk{background:var(--surface); color:var(--accent); box-shadow:none}
+.bookad{display:flex; gap:20px; align-items:center; background:var(--surface); border-radius:var(--r); padding:20px; margin-top:40px; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.bookad img{width:128px; flex:0 0 128px}
+.bookad .k{font-size:.8125rem; font-weight:700; color:var(--accent)}
+.bookad h3{font-size:1.25rem; line-height:1.35; color:var(--ink-1); font-weight:800; margin:4px 0 6px}
+.bookad p{margin:0 0 12px}
+.bookad .bt{display:flex; gap:8px; flex-wrap:wrap}
+.bookad .bt a{font-weight:700; text-decoration:none; border-radius:10px; padding:11px 16px; min-height:44px}
+.bookad .bt a.buy{background:var(--accent); color:#fff}
+.bookad .bt a.home{background:var(--bg); color:var(--ink-1)}
+@media (max-width:479px){
+  .bookad{flex-direction:column; text-align:center}
+  .bookad img{width:150px; flex-basis:auto}
+  .bookad .bt{justify-content:center}
+}
+
 footer{margin-top:56px; font-size:.875rem; color:var(--ink-3)}
 footer p{margin:4px 0}
 
@@ -138,6 +158,10 @@ footer p{margin:4px 0}
 </style>
 </head>
 <body>
+<div class="adbar"><div>
+  <a class="bk" href="https://product.kyobobook.co.kr/detail/S000221773230" target="_blank" rel="noopener">『AI 2027』 책 보기 ↗</a>
+  <a href="https://www.itcl.kr" target="_blank" rel="noopener">ITCL 홈페이지 ↗</a>
+</div></div>
 <div class="wrap">
 
 <header class="top">
@@ -519,19 +543,25 @@ footer p{margin:4px 0}
     </div>
   </details>
 
-  <details class="more">
-    <summary>책으로 이어 보기</summary>
-    <div class="more-body">
-      <p>오늘 이야기는 『AI 2027 트렌드&amp;활용백과』(11월 2일 출간)에 들어 있습니다. 앞쪽은 2027년 AI 트렌드 10가지, 뒤쪽은 도구를 직접 써 본 활용편입니다.</p>
-      <p>온라인 서점에서 <b>'AI2027'</b>로 검색하세요.</p>
+</section>
+
+<section class="bookad" aria-label="책 안내">
+  <img src="img/book_ai2027.jpg" alt="『AI 2027 트렌드&amp;활용백과』 책 표지" width="360" height="438" loading="lazy">
+  <div>
+    <div class="k">오늘 이야기는 이 책에 들어 있습니다</div>
+    <h3>『AI 2027 트렌드&amp;활용백과』</h3>
+    <p>김덕진 지음 · 스마트북스 · 11월 2일 출간. 앞쪽은 2027년 AI 트렌드 10가지, 뒤쪽은 AI 도구 50개를 직접 써 본 활용편입니다.</p>
+    <div class="bt">
+      <a class="buy" href="https://product.kyobobook.co.kr/detail/S000221773230" target="_blank" rel="noopener">교보문고에서 책 보기 ↗</a>
+      <a class="home" href="https://www.itcl.kr" target="_blank" rel="noopener">ITCL 홈페이지 ↗</a>
     </div>
-  </details>
+  </div>
 </section>
 
 <footer>
   <p>화면은 강사가 2026년 10~11월에 직접 실행하고 찍은 실제 화면입니다(챗GPT 실습은 무료 계정, 설정 화면은 유료 계정). 손님 이름은 모두 가상입니다.</p>
   <p>서비스 화면과 무료 범위는 바뀔 수 있습니다.</p>
-  <p>김덕진 · IT커뮤니케이션연구소 · <a href="https://open.kakao.com/o/gQiVg8Bh" target="_blank" rel="noopener">김덕진의 AI 큐레이션 오픈카톡방</a></p>
+  <p>김덕진 · IT커뮤니케이션연구소 <a href="https://www.itcl.kr" target="_blank" rel="noopener">www.itcl.kr</a> · <a href="https://open.kakao.com/o/gQiVg8Bh" target="_blank" rel="noopener">김덕진의 AI 큐레이션 오픈카톡방</a></p>
 </footer>
 
 </div>
