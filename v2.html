@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI시대의 생존법 복습 · 전남대 AI 시민 아카데미</title>
+<meta name="description" content="2026.11.11 전남대 AI 시민 아카데미 「AI시대의 생존법: 알아두면 쓸모 있는 AI」 강의 후 따라 하기 페이지">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink-1:#151515; --ink-2:#3F3F46; --ink-3:#71717A;
+  --bg:#F5F5F3; --surface:#FFFFFF; --line:#E7E5E4; --soft:#F5F5F3;
+  --accent:#C2362C;
+  --ok:#12A150;
+  --scale:1;
+  --r:14px;
+}
+*{box-sizing:border-box}
+html{font-size:calc(16px * var(--scale)); -webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink-2);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  line-height:1.65; word-break:keep-all; overflow-wrap:anywhere}
+a{color:var(--accent)}
+img{max-width:100%; height:auto; display:block}
+.wrap{max-width:720px; margin:0 auto; padding:0 16px 120px}
+
+/* 머리 */
+.top{padding:28px 0 8px}
+.eyebrow{font-size:.8125rem; color:var(--ink-3); letter-spacing:.01em}
+h1{font-size:1.25rem; line-height:1.35; color:var(--ink-1); margin:6px 0 6px; font-weight:800}
+.lead{margin:0; font-size:1rem}
+
+/* 히어로 */
+.hero{background:var(--surface); border-radius:var(--r); padding:24px 20px; margin:24px 0 0; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.hero .tag{display:inline-block; font-size:.8125rem; font-weight:700; color:var(--accent); background:var(--bg); border-radius:999px; padding:3px 12px}
+.hero h2{font-size:2rem; line-height:1.35; color:var(--ink-1); margin:12px 0 6px; font-weight:800}
+.hero p{margin:0 0 16px}
+
+/* 칩 */
+.chips{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 10px}
+.chip{font:inherit; font-size:1rem; font-weight:600; color:var(--ink-2); background:var(--soft); border:1px solid var(--line);
+  border-radius:999px; padding:8px 14px; min-height:40px; cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink-1); color:var(--surface); border-color:var(--ink-1)}
+.chips-label{font-size:.8125rem; color:var(--ink-3); margin:0 0 6px}
+
+/* 프롬프트 상자 */
+.prompt{position:relative; margin:0 0 6px}
+.prompt textarea{width:100%; font:inherit; font-size:1.0625rem; line-height:1.6; color:var(--ink-1);
+  background:var(--soft); border:1px solid var(--line); border-radius:12px; padding:14px 14px 56px; resize:vertical; min-height:120px}
+.prompt textarea:focus{outline:2px solid var(--accent); outline-offset:1px}
+.copy{position:absolute; right:10px; bottom:10px; font:inherit; font-size:1rem; font-weight:700; color:var(--surface); background:var(--accent);
+  border:0; border-radius:10px; padding:9px 16px; min-height:40px; cursor:pointer}
+.hint{font-size:.8125rem; color:var(--ink-3); margin:0}
+
+/* 진행 */
+.progress{display:flex; align-items:center; gap:12px; margin:28px 0 8px}
+.progress strong{font-size:1.0625rem; color:var(--ink-1)}
+.dots{display:flex; gap:6px}
+.dots i{width:28px; height:8px; border-radius:4px; background:var(--line); display:block}
+.dots i.on{background:var(--ok)}
+
+/* 단계 카드 */
+.step{background:var(--surface); border-radius:var(--r); padding:24px 20px; margin:16px 0 0; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.step-head{display:flex; gap:12px; align-items:flex-start}
+.num{flex:0 0 auto; width:36px; height:36px; border-radius:50%; background:var(--ink-1); color:var(--surface); font-weight:800; display:flex; align-items:center; justify-content:center}
+.step h3{font-size:1.25rem; line-height:1.35; color:var(--ink-1); margin:2px 0 4px; font-weight:800}
+.where{font-size:.875rem; margin:0}
+.where a{font-weight:700}
+.block{margin-top:20px}
+.block h4{font-size:1rem; color:var(--ink-1); margin:0 0 8px; font-weight:700}
+.tips{margin:0; padding-left:1.1em}
+.tips li{margin:4px 0}
+.done{font:inherit; font-size:1rem; font-weight:700; margin-top:20px; width:100%; min-height:48px; border-radius:12px; cursor:pointer;
+  background:var(--surface); color:var(--ink-1); border:1.5px solid var(--ink-1)}
+.done[aria-pressed="true"]{background:var(--ok); border-color:var(--ok); color:var(--surface)}
+
+/* 실제 화면 */
+details.real{margin-top:20px; border-radius:12px; background:var(--soft)}
+details.real summary{cursor:pointer; list-style:none; padding:14px 16px; font-weight:700; color:var(--ink-1); display:flex; justify-content:space-between; align-items:center}
+details.real summary::-webkit-details-marker{display:none}
+details.real summary::after{content:"펼치기 ▾"; font-size:.8125rem; color:var(--ink-3); font-weight:600}
+details.real[open] summary::after{content:"접기 ▴"}
+.real-body{padding:0 16px 16px}
+figure{margin:0 0 20px}
+figure img{border-radius:10px; border:1px solid var(--line); background:var(--surface)}
+figcaption{font-size:.875rem; color:var(--ink-2); margin-top:6px}
+figcaption b{color:var(--ink-1)}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.grid2 figure{margin:0}
+.quote{background:var(--surface); border-left:3px solid var(--ink-1); border-radius:0 10px 10px 0; padding:12px 14px; margin:0 0 20px; font-size:1rem; color:var(--ink-1)}
+.quote small{display:block; color:var(--ink-3); font-size:.8125rem; margin-bottom:4px}
+
+/* 섹션 */
+.sec{margin-top:48px}
+.sec > h2{font-size:1.25rem; color:var(--ink-1); margin:0 0 4px; font-weight:800}
+.sec > p.sub{margin:0 0 16px; color:var(--ink-3); font-size:.875rem}
+.rows{display:grid; gap:12px}
+.row{background:var(--surface); border-radius:12px; padding:16px; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.row .who{font-weight:800; color:var(--ink-1); font-size:1.0625rem}
+.row dl{margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:1rem}
+.row dt{color:var(--ink-3)}
+.row dd{margin:0}
+.line-copy{display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:10px; background:var(--soft); border-radius:10px; padding:8px 8px 8px 12px}
+.line-copy span{color:var(--ink-1); font-weight:600}
+.line-copy button{font:inherit; font-size:.875rem; font-weight:700; border:0; background:var(--ink-1); color:var(--surface); border-radius:8px; padding:8px 12px; min-height:38px; cursor:pointer; flex:0 0 auto}
+.safety{counter-reset:s; display:grid; gap:12px}
+.safety .row{padding-left:56px; position:relative}
+.safety .row::before{counter-increment:s; content:"0" counter(s); position:absolute; left:16px; top:15px; font-weight:800; color:var(--accent)}
+.safety .row b{color:var(--ink-1); font-size:1.0625rem}
+.safety .row p{margin:4px 0 0}
+.note{margin:12px 0 0; color:var(--ink-1); font-weight:600}
+details.more{background:var(--surface); border-radius:12px; margin-top:12px; box-shadow:0 1px 2px rgba(0,0,0,.04)}
+details.more summary{cursor:pointer; padding:16px; font-weight:800; color:var(--ink-1); font-size:1.0625rem; list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:" ▾"; color:var(--ink-3)}
+details.more[open] summary::after{content:" ▴"}
+.more-body{padding:0 16px 16px}
+.more-body ol{padding-left:1.2em; margin:8px 0}
+.src-list{font-size:.875rem; padding-left:1.1em; margin:6px 0 0}
+.btn-link{display:inline-block; margin-top:8px; font-weight:700; text-decoration:none; background:var(--bg); color:var(--accent); border-radius:10px; padding:10px 14px}
+
+footer{margin-top:56px; font-size:.875rem; color:var(--ink-3)}
+footer p{margin:4px 0}
+
+/* 글자 크기 · 알림 */
+.font-ctrl{position:fixed; right:12px; bottom:12px; display:flex; gap:6px; z-index:10}
+.font-ctrl button{font:inherit; font-weight:800; width:48px; height:48px; border-radius:12px; border:0; background:var(--ink-1); color:var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.08); cursor:pointer}
+.toast{position:fixed; left:50%; bottom:76px; transform:translateX(-50%) translateY(20px); opacity:0; background:var(--ink-1); color:var(--surface);
+  padding:10px 18px; border-radius:999px; font-weight:700; font-size:.875rem; transition:.2s; pointer-events:none; z-index:11}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+@media (min-width:640px){
+  .hero,.step{padding:28px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">전남대학교 AI 시민 아카데미 · 2026.11.11 · 김덕진</div>
+  <h1>AI시대의 생존법:<br>알아두면 쓸모 있는 AI</h1>
+  <p class="lead">강의에서 본 실습을 집에서 그대로 따라 하는 페이지입니다. 무료 계정이면 충분합니다.</p>
+</header>
+
+<!-- 1층: 오늘 밤 딱 하나 -->
+<section class="hero" aria-labelledby="hero-t">
+  <span class="tag">오늘 밤 딱 하나</span>
+  <h2 id="hero-t">내 일 한 줄, AI에게 맡겨 보세요</h2>
+  <p>내 자리를 고르면 문장이 채워집니다. 복사해서 챗GPT · 제미나이 · 클로드 아무 곳에나 붙여 넣으세요.</p>
+  <p class="chips-label">나는</p>
+  <div class="chips" data-target="p-hero">
+    <button class="chip" data-fill="나는 전남대 2학년입니다. 기말 조별 발표 역할 나누기를 하려고 해요.">학생</button>
+    <button class="chip" data-fill="나는 대학 교직원입니다. 연말 송년회 공지를 쓰려고 해요.">직장인 · 교직원</button>
+    <button class="chip" data-fill="나는 반찬가게를 돕는 가족입니다. 단골손님께 연말 문자를 보내려고 해요.">사장님 · 가족</button>
+    <button class="chip" data-fill="나는 중학생 아이를 둔 부모입니다. 아이와 AI 사용 규칙을 정하려고 해요.">부모님</button>
+  </div>
+  <div class="prompt">
+    <textarea id="p-hero" rows="5" aria-label="맡길 일 한 줄" data-tail="바로 하지 말고 꼭 필요한 질문을 먼저 3개만 해 주세요. 모르는 것은 '확인 필요'라고 적어 주세요.">나는 [누구]입니다. [내일 할 일]을 하려고 해요.
+바로 하지 말고 꼭 필요한 질문을 먼저 3개만 해 주세요. 모르는 것은 '확인 필요'라고 적어 주세요.</textarea>
+    <button class="copy" data-copy="p-hero">복사</button>
+  </div>
+  <p class="hint">[ ] 자리는 직접 고쳐 써도 됩니다. AI가 질문하면 번호만 골라 답하세요.</p>
+</section>
+
+<!-- 2층: 진행 -->
+<div class="progress" aria-live="polite">
+  <strong>따라 하기 <span id="cnt">0</span> / 3</strong>
+  <div class="dots" aria-hidden="true"><i data-dot="s1"></i><i data-dot="s2"></i><i data-dot="s3"></i></div>
+</div>
+
+<!-- ① 챗GPT -->
+<section class="step" id="s1">
+  <div class="step-head">
+    <div class="num">1</div>
+    <div>
+      <h3>AI가 먼저 묻게 하기 (ABA)</h3>
+      <p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> · 제미나이 · 클로드 아무거나 · 무료</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>따라 할 문장</h4>
+    <div class="chips" data-target="p-s1" data-mode="line1">
+      <button class="chip" data-fill="기말 발표 자료를 만들려고 해요.">학생</button>
+      <button class="chip" data-fill="연말 송년회 공지를 쓰려고 해요.">직장인 · 교직원</button>
+      <button class="chip" data-fill="단골손님께 연말 문자를 보내려고 해요.">사장님</button>
+      <button class="chip" data-fill="주말에 아이와 갈 광주 나들이를 짜려고 해요.">부모님</button>
+    </div>
+    <div class="prompt">
+      <textarea id="p-s1" rows="4" aria-label="ABA 문장" data-tail="바로 답하지 말고, 좋은 결과를 만드는 데 꼭 필요한 질문을 먼저 3개만 해 주세요.">[하고 싶은 일]을 하려고 해요.
+바로 답하지 말고, 좋은 결과를 만드는 데 꼭 필요한 질문을 먼저 3개만 해 주세요.</textarea>
+      <button class="copy" data-copy="p-s1">복사</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>이렇게 하면 됩니다</h4>
+    <ul class="tips">
+      <li>AI가 질문을 하면 <b>번호만 골라</b> 답하세요.</li>
+      <li>글자 수, 말투 같은 <b>조건은 내가</b> 정해서 덧붙입니다. 예: "90자 안쪽, 전라도 말투는 살짝만."</li>
+      <li>마음에 드는 안이 여러 개면 "두 가지 버전으로 써 주세요"라고 하세요.</li>
+    </ul>
+  </div>
+
+  <details class="real">
+    <summary>강사가 실제로 한 화면 보기</summary>
+    <div class="real-body">
+      <p class="hint" style="margin-bottom:12px">그림을 누르면 크게 볼 수 있어요.</p>
+      <figure><img src="img/gpt_1_ask.png" alt="챗GPT에 보낸 첫 부탁: 양동시장 반찬가게 연말 감사 문자, 먼저 질문 3개" loading="lazy" width="720" height="285">
+        <figcaption><b>① 내가 보낸 말.</b> 끝에 "바로 쓰지 말고, 꼭 필요한 질문을 먼저 3개만" 한 줄을 붙였습니다.</figcaption></figure>
+      <figure><img src="img/gpt_2_questions.png" alt="AI가 먼저 물은 객관식 질문 3개" loading="lazy" width="800" height="559">
+        <figcaption><b>② AI가 먼저 물은 것.</b> 강조할 마음, 분위기, 새해 인사와 홍보. 객관식이라 번호만 고르면 됩니다.</figcaption></figure>
+      <figure><img src="img/gpt_3_reply.png" alt="내 답: 번호 세 개와 조건 두 개" loading="lazy" width="720" height="187">
+        <figcaption><b>③ 내가 한 일.</b> 번호 세 개를 고르고, 90자 · 전라도 말투 살짝이라는 조건만 붙였습니다.</figcaption></figure>
+      <figure><img src="img/gpt_4_result.png" alt="받은 문자 버전 2와 AI의 추천" loading="lazy" width="800" height="425">
+        <figcaption><b>④ 받은 문자.</b> 두 가지 버전 중 AI가 2번을 추천했습니다.</figcaption></figure>
+      <p class="hint">챗GPT 무료 계정 · 2026년 11월 10일 강사 실행</p>
+    </div>
+  </details>
+
+  <button class="done" data-step="s1" aria-pressed="false">해 봤어요</button>
+</section>
+
+<!-- ② 클로드 -->
+<section class="step" id="s2">
+  <div class="step-head">
+    <div class="num">2</div>
+    <div>
+      <h3>말로 부탁해서 작은 앱 만들기</h3>
+      <p class="where">어디서: <a href="https://claude.ai" target="_blank" rel="noopener">클로드</a> (claude.ai · 앱) · 무료로 시작</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>따라 할 문장</h4>
+    <div class="chips" data-target="p-s2" data-mode="all">
+      <button class="chip" data-fill="우리 가게에서 쓸 '단골 도장판' 웹 앱을 만들어 주세요. 손님 이름과 전화번호 뒷자리 4자리로 찾고, 올 때마다 도장 1개를 찍고, 10개가 모이면 '서비스'를 크게 보여 주세요. 가게 일을 하며 휴대폰으로 쓸 거라 글자와 버튼은 크고 단순하게, 예시는 가상 손님 5명으로 넣어 주세요.">사장님</button>
+      <button class="chip" data-fill="우리 조에서 쓸 '발표 순서 뽑기' 웹 앱을 만들어 주세요. 조원 이름을 넣으면 발표 순서를 무작위로 정하고, 각자 맡은 부분을 옆에 적을 수 있게 해 주세요. 휴대폰으로 같이 볼 거라 글자와 버튼은 크고 단순하게, 예시는 가상 조원 5명으로 넣어 주세요.">학생</button>
+      <button class="chip" data-fill="우리 집에서 쓸 '용돈 기록장' 웹 앱을 만들어 주세요. 아이가 받은 돈과 쓴 돈을 적고, 이번 달 남은 돈을 크게 보여 주세요. 초등학생 아이가 휴대폰으로 쓸 거라 글자와 버튼은 크고 단순하게, 예시는 가상 기록 5개로 넣어 주세요.">부모님</button>
+      <button class="chip" data-fill="우리 독서 모임에서 쓸 '출석 체크' 웹 앱을 만들어 주세요. 회원 이름을 누르면 오늘 출석이 찍히고, 이번 달 출석 횟수를 보여 주세요. 휴대폰으로 쓸 거라 글자와 버튼은 크고 단순하게, 예시는 가상 회원 6명으로 넣어 주세요.">모임 · 동아리</button>
+    </div>
+    <div class="prompt">
+      <textarea id="p-s2" rows="6" aria-label="앱 부탁 문장">[어디서] 쓸 '[앱 이름]' 웹 앱을 만들어 주세요. [하는 일 두세 가지]. [누가] 휴대폰으로 쓸 거라 글자와 버튼은 크고 단순하게, 예시는 가상 데이터로 넣어 주세요.</textarea>
+      <button class="copy" data-copy="p-s2">복사</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>다 만들고 나면, 한 줄 더</h4>
+    <div class="line-copy"><span>이 앱에서 아직 정하지 않은 것과 조심할 점을 알려 줘.</span><button data-copytext="이 앱에서 아직 정하지 않은 것과 조심할 점을 알려 줘.">복사</button></div>
+    <ul class="tips" style="margin-top:12px">
+      <li>누가 · 어디서 · 어떤 조건으로 쓰는지 적을수록 화면이 그 사람에게 맞춰집니다.</li>
+      <li>조건을 자세히 적으면 AI가 묻지 않고 바로 만들기도 합니다. 막막하면 1번처럼 "먼저 물어봐 줘"를 붙이세요.</li>
+      <li>이런 앱의 기록은 <b>그 휴대폰 브라우저에만</b> 저장될 수 있습니다. 실제 전화번호 전체나 주민번호는 넣지 마세요.</li>
+    </ul>
+  </div>
+
+  <details class="real">
+    <summary>강사가 실제로 한 화면 보기</summary>
+    <div class="real-body">
+      <p class="hint" style="margin-bottom:12px">그림을 누르면 크게 볼 수 있어요.</p>
+      <p class="quote"><small>내가 보낸 말 (원문)</small>광주 양동시장 반찬가게에서 쓸 '단골 도장판' 웹 앱을 만들어 주세요. 손님 이름과 전화번호 뒷자리 4자리로 찾고, 올 때마다 도장 1개를 찍고, 10개가 모이면 '반찬 한 가지 서비스'를 크게 보여 주세요. 어머니가 휴대폰으로 쓰실 거라 글자와 버튼은 크고 단순하게, 예시는 가상 손님 5명으로 넣어 주세요.</p>
+      <div class="grid2">
+        <figure><img src="img/claude_1_keypad.png" alt="첫 화면: 전화번호 뒷자리 4개를 누르는 큰 숫자판" loading="lazy" width="420" height="657"><figcaption><b>①</b> 뒷자리 4개 누르기</figcaption></figure>
+        <figure><img src="img/claude_2_choose.png" alt="같은 번호 손님이 둘일 때 이름을 고르는 화면" loading="lazy" width="420" height="415"><figcaption><b>②</b> 같은 번호면 이름 고르기</figcaption></figure>
+        <figure><img src="img/claude_3_board.png" alt="도장판 화면: 서비스까지 1번 남았어요" loading="lazy" width="420" height="511"><figcaption><b>③</b> 도장 찍기</figcaption></figure>
+        <figure><img src="img/claude_4_service.png" alt="열 번째 도장: 반찬 한 가지 서비스 화면" loading="lazy" width="420" height="411"><figcaption><b>④</b> 열 번째, 서비스!</figcaption></figure>
+      </div>
+      <figure style="margin-top:20px"><img src="img/claude_5_why.png" alt="클로드 답변: 요청에는 없었지만 넣은 것 세 가지" loading="lazy" width="800" height="103">
+        <figcaption><b>부탁하지 않았는데 넣은 것.</b> 도장 취소, 새 손님 등록, '오늘 이미 찍었어요' 표시.</figcaption></figure>
+      <figure><img src="img/claude_6_open.png" alt="클로드 답변: 열린 것, 기록 저장 위치와 광주 말 말투" loading="lazy" width="800" height="216">
+        <figcaption><b>아직 정하지 않은 것까지.</b> 기록이 그 폰에만 저장된다는 점, 화면 말투를 광주 말로 할지는 사람이 정할 몫이라는 점을 먼저 알려 줍니다.</figcaption></figure>
+      <p class="hint">클로드 · 2026년 11월 10일 강사 실행 · 손님 이름은 모두 가상</p>
+    </div>
+  </details>
+
+  <button class="done" data-step="s2" aria-pressed="false">해 봤어요</button>
+</section>
+
+<!-- ③ 제미나이 노트북 -->
+<section class="step" id="s3">
+  <div class="step-head">
+    <div class="num">3</div>
+    <div>
+      <h3>내 자료만 넣고, 그 안에서만 답 받기</h3>
+      <p class="where">어디서: <a href="https://notebooklm.google.com" target="_blank" rel="noopener">제미나이 노트북</a> (옛 노트북LM) · 구글 계정 · 무료로 시작</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>순서</h4>
+    <ol class="tips">
+      <li><b>새 노트북</b>을 만들고 <b>소스 추가</b>로 자료를 넣습니다. PDF, 웹사이트 주소, 유튜브, 복사한 글 모두 됩니다.</li>
+      <li>아래 문장으로 묻습니다. 답의 작은 숫자를 누르면 <b>원문 문장</b>이 나옵니다.</li>
+      <li>오른쪽 <b>스튜디오</b>에서 오디오, 마인드맵을 눌러 봅니다.</li>
+    </ol>
+    <p class="note">자료가 없다면: 오늘 오픈카톡방에 올라온 강의 요약본을 넣어 보세요. 복습 팟캐스트가 됩니다.</p>
+  </div>
+
+  <div class="block">
+    <h4>물어볼 문장</h4>
+    <div class="chips" data-target="p-s3" data-mode="slot" data-slot="[누구]">
+      <button class="chip" data-fill="광주·전남 시민">시민</button>
+      <button class="chip" data-fill="대학생">대학생</button>
+      <button class="chip" data-fill="우리 가게">가게</button>
+      <button class="chip" data-fill="우리 아이와 부모">가족</button>
+    </div>
+    <div class="prompt">
+      <textarea id="p-s3" rows="5" aria-label="노트북 질문 문장" data-template="이 자료를 근거로, [누구]에게 달라질 일 3가지와 아직 정해지지 않은 것 2가지를 표 하나로 짧게 정리해 주세요. 각 줄에 어느 자료에서 나온 내용인지 표시해 주세요.">이 자료를 근거로, [누구]에게 달라질 일 3가지와 아직 정해지지 않은 것 2가지를 표 하나로 짧게 정리해 주세요. 각 줄에 어느 자료에서 나온 내용인지 표시해 주세요.</textarea>
+      <button class="copy" data-copy="p-s3">복사</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <h4>오디오 만들 때 적을 한 줄</h4>
+    <p class="hint" style="margin-bottom:8px">스튜디오 → AI 오디오 오버뷰 → 형식 '요약', 언어 '한국어' → 맨 아래 칸에 적습니다.</p>
+    <div class="line-copy"><span>[누구] 입장에서, [무엇이 달라지는지] 쉬운 말로 설명해 주세요.</span><button data-copytext="[누구] 입장에서, [무엇이 달라지는지] 쉬운 말로 설명해 주세요.">복사</button></div>
+    <div class="line-copy"><span>자료에 없는 내용은 없다고 말해 줘.</span><button data-copytext="자료에 없는 내용은 없다고 말해 줘.">복사</button></div>
+  </div>
+
+  <details class="real">
+    <summary>강사가 실제로 한 화면 보기</summary>
+    <div class="real-body">
+      <p class="hint" style="margin-bottom:12px">그림을 누르면 크게 볼 수 있어요.</p>
+      <p class="quote"><small>넣은 자료: 우리 동네 AI 기사 3개</small>
+        <a href="https://news.mtn.co.kr/news-detail/2026090110122960085" target="_blank" rel="noopener">MTN · 전남광주 도시 전체를 'AI 테스트베드'로 만든다</a><br>
+        <a href="https://zdnet.co.kr/view/?no=20260803162041" target="_blank" rel="noopener">지디넷코리아 · 정부·민간 협력 '국가AI컴퓨팅센터' 착공</a><br>
+        <a href="https://www.fnnews.com/news/202608031455407533" target="_blank" rel="noopener">파이낸셜뉴스 · 장성군에 20MW 규모 AI 데이터센터 본격 구축</a></p>
+      <figure><img src="img/nb_0_layout.png" alt="제미나이 노트북 전체 화면: 출처, 채팅, 스튜디오 세 칸" loading="lazy" width="1200" height="511">
+        <figcaption><b>세 칸.</b> 왼쪽 내 자료, 가운데 출처 번호 달린 답, 오른쪽 스튜디오.</figcaption></figure>
+      <figure><img src="img/nb_1_question.png" alt="노트북에 물은 질문" loading="lazy" width="800" height="169"><figcaption><b>① 내가 물은 말</b></figcaption></figure>
+      <figure><img src="img/nb_2_change.png" alt="노트북 답: 달라질 일 세 가지 표" loading="lazy" width="800" height="567"><figcaption><b>② 달라질 일 3가지.</b> 줄마다 기사 이름과 출처 번호가 붙습니다.</figcaption></figure>
+      <figure><img src="img/nb_3_open.png" alt="노트북 답: 아직 정해지지 않은 것 두 가지 표" loading="lazy" width="800" height="321"><figcaption><b>③ 아직 정해지지 않은 것 2가지.</b> 장성 센터는 아직 협약(MOU) 단계라는 점을 짚습니다.</figcaption></figure>
+      <figure><img src="img/nb_4_audio.png" alt="AI 오디오 오버뷰 맞춤설정 화면" loading="lazy" width="900" height="445"><figcaption><b>④ 오디오 설정.</b> 형식 '요약', 언어 '한국어', 누구 눈높이인지 한 줄.</figcaption></figure>
+      <figure><img src="img/nb_5_result.png" alt="만들어진 오디오와 마인드맵 목록" loading="lazy" width="680" height="242"><figcaption><b>⑤ 결과.</b> 2분 3초짜리 한국어 오디오가 나왔습니다.</figcaption></figure>
+      <figure><img src="img/nb_6_mindmap.png" alt="마인드맵: 장성 AI 데이터센터 가지를 펼친 모습" loading="lazy" width="1200" height="306"><figcaption><b>⑥ 마인드맵.</b> 가지를 누르면 펼쳐집니다.</figcaption></figure>
+      <p class="hint">제미나이 노트북 · 2026년 11월 10일 강사 실행</p>
+    </div>
+  </details>
+
+  <button class="done" data-step="s3" aria-pressed="false">해 봤어요</button>
+</section>
+
+<!-- 3층: 이럴 땐 이것 -->
+<section class="sec" aria-labelledby="t-tool">
+  <h2 id="t-tool">이럴 땐 이것</h2>
+  <p class="sub">도구는 바뀌어도, 지시서에 넣는 이 한 줄은 남습니다</p>
+  <div class="rows">
+    <div class="row"><div class="who">학생</div>
+      <dl><dt>이런 일</dt><dd>강의 자료 복습 · 발표 준비</dd><dt>도구</dt><dd>제미나이 노트북 · 챗GPT</dd></dl>
+      <div class="line-copy"><span>자료에 없는 내용은 없다고 말해 줘</span><button data-copytext="자료에 없는 내용은 없다고 말해 줘">복사</button></div></div>
+    <div class="row"><div class="who">직장인 · 교직원</div>
+      <dl><dt>이런 일</dt><dd>보고서 · 공지 · 엑셀 정리</dd><dt>도구</dt><dd>챗GPT · 클로드</dd></dl>
+      <div class="line-copy"><span>모르는 숫자는 '확인 필요'라고 적어 줘</span><button data-copytext="모르는 숫자는 '확인 필요'라고 적어 줘">복사</button></div></div>
+    <div class="row"><div class="who">사장님</div>
+      <dl><dt>이런 일</dt><dd>손님 문자 · 리뷰 답글 · 포스터</dd><dt>도구</dt><dd>챗GPT · 챗GPT 이미지</dd></dl>
+      <div class="line-copy"><span>바로 쓰지 말고 먼저 물어봐 줘</span><button data-copytext="바로 쓰지 말고 먼저 물어봐 줘">복사</button></div></div>
+    <div class="row"><div class="who">부모님 · 어르신</div>
+      <dl><dt>이런 일</dt><dd>냉장고 요리 · 사기 수법 안내문</dd><dt>도구</dt><dd>제미나이 라이브 · 딥 리서치</dd></dl>
+      <div class="line-copy"><span>중학생도 알아듣게 세 줄로</span><button data-copytext="중학생도 알아듣게 세 줄로">복사</button></div></div>
+  </div>
+</section>
+
+<!-- 지켜 주세요 -->
+<section class="sec" aria-labelledby="t-safe">
+  <h2 id="t-safe">이것만은 지켜 주세요</h2>
+  <p class="sub">AI와 오래 가는 세 가지 약속</p>
+  <div class="safety">
+    <div class="row"><b>넣지 말 것</b><p>주민번호 · 계좌 · 비밀번호, 남의 개인정보. 민감한 질문은 임시 채팅으로.</p></div>
+    <div class="row"><b>원문에서 확인할 것</b><p>숫자 · 날짜 · 법 · 지원금 조건은 출처를 눌러 원문으로. AI 답은 출발점입니다.</p></div>
+    <div class="row"><b>맞장구에 속지 말 것</b><p>듣기 좋은 말일수록 한 번 더. "반대 의견과 약점도 말해 줘."</p></div>
+  </div>
+  <p class="note">결제 · 송금 · 발송 버튼만큼은 끝까지 내 손에 쥐고 계세요.</p>
+</section>
+
+<!-- 더 해 보기 -->
+<section class="sec" aria-labelledby="t-more">
+  <h2 id="t-more">더 해 보기</h2>
+  <p class="sub">시간이 있을 때 하나씩</p>
+
+  <details class="more">
+    <summary>사장님 숙제: AI에게 우리 가게를 물어보세요</summary>
+    <div class="more-body">
+      <p>손님보다 손님의 AI가 먼저 고르는 시대입니다. 우리 가게가 AI의 답 안에 있는지 확인해 보세요.</p>
+      <div class="line-copy"><span>광주 [동네 이름]에서 [업종]을 찾는 사람에게 세 곳을 추천해 줘. 고른 이유도 알려 줘.</span><button data-copytext="광주 [동네 이름]에서 [업종]을 찾는 사람에게 세 곳을 추천해 줘. 고른 이유도 알려 줘.">복사</button></div>
+      <div class="line-copy"><span>(우리 가게가 없다면) [우리 가게 이름]은 왜 빠졌을까? 손님이 비교할 수 있게 무엇을 더 적어 두면 좋을지 세 가지만 알려 줘.</span><button data-copytext="[우리 가게 이름]은 왜 빠졌을까? 손님이 비교할 수 있게 무엇을 더 적어 두면 좋을지 세 가지만 알려 줘.">복사</button></div>
+      <ol>
+        <li><b>숫자를 가진 문장으로:</b> '정성 가득' 대신 '매일 아침 무친 나물 12가지'</li>
+        <li><b>기계가 읽는 구조로:</b> 메뉴 · 가격 · 영업시간은 사진 말고 글자로</li>
+        <li><b>공신력 있는 출처 위에:</b> 지도 앱 · 리뷰 · 지역 언론에 같은 정보를 한 벌씩</li>
+      </ol>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>프롬프트 자판기: 프롬프트도 AI에게</summary>
+    <div class="more-body">
+      <p>자주 하는 일이라면 지시서 쓰는 일까지 AI에게 맡기세요. [하고 싶은 일]만 바꿔 넣으면 됩니다.</p>
+      <div class="prompt">
+        <textarea id="p-vend" rows="9" aria-label="프롬프트 자판기">너는 프롬프트 설계자야. 내가 [하고 싶은 일]을 AI에게 시킬 때 쓸 프롬프트를 만들어 줘.
+- 먼저 좋은 프롬프트를 쓰는 데 필요한 정보를 나에게 하나씩 질문해 줘(최대 5개).
+- 답을 다 들으면, 목표·맥락·자료·조건·형식·기준 6칸 구조로 프롬프트를 써줘.
+- 내가 바꿔 쓸 부분은 [대괄호]로 표시해 줘.
+- 마지막에 이 프롬프트가 실패할 수 있는 경우 2가지와, 그걸 막는 문장을 붙여줘.</textarea>
+        <button class="copy" data-copy="p-vend">복사</button>
+      </div>
+      <a class="btn-link" href="https://socialkim.github.io/ai2027/prompt/" target="_blank" rel="noopener">명세 6칸 조립기 열기 ↗</a>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>책으로 이어 보기</summary>
+    <div class="more-body">
+      <p>오늘 이야기는 『AI 2027 트렌드&amp;활용백과』(11월 2일 출간)에 들어 있습니다. 앞쪽은 2027년 AI 트렌드 10가지, 뒤쪽은 도구를 직접 써 본 활용편입니다.</p>
+      <p>온라인 서점에서 <b>'AI2027'</b>로 검색하세요.</p>
+    </div>
+  </details>
+</section>
+
+<footer>
+  <p>화면은 강사가 2026년 11월 10일 직접 실행한 실제 화면입니다(챗GPT는 무료 계정). 손님 이름은 모두 가상입니다.</p>
+  <p>서비스 화면과 무료 범위는 바뀔 수 있습니다.</p>
+  <p>김덕진 · IT커뮤니케이션연구소 · <a href="https://open.kakao.com/o/gQiVg8Bh" target="_blank" rel="noopener">김덕진의 AI 큐레이션 오픈카톡방</a></p>
+</footer>
+
+</div>
+
+<div class="font-ctrl" aria-label="글자 크기">
+  <button type="button" data-font="-1" aria-label="글자 작게">A−</button>
+  <button type="button" data-font="1" aria-label="글자 크게">A+</button>
+</div>
+<div class="toast" id="toast" role="status">복사했어요. AI에 붙여 넣으세요</div>
+
+<script>
+(function(){
+  var mem = {};   // 저장이 막힌 브라우저에서도 이 화면 안에서는 동작
+  var store = {
+    get:function(k){ try{ var v = localStorage.getItem('jnu1111_'+k); if(v !== null) return v; }catch(e){} return (k in mem) ? mem[k] : null; },
+    set:function(k,v){ mem[k] = v; try{ localStorage.setItem('jnu1111_'+k, v); }catch(e){} }
+  };
+  var toastEl = document.getElementById('toast'), tt;
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 1600); }
+
+  function copyText(t){
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); toast('복사했어요. AI에 붙여 넣으세요'); }catch(e){ toast('길게 눌러 직접 복사해 주세요'); }
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(t).then(function(){ toast('복사했어요. AI에 붙여 넣으세요'); }, fallback);
+    } else { fallback(); }
+  }
+
+  function grow(ta){ ta.style.height='auto'; ta.style.height = (ta.scrollHeight + 2) + 'px'; }
+  document.querySelectorAll('.prompt textarea').forEach(function(ta){ grow(ta); ta.addEventListener('input', function(){ grow(ta); }); });
+
+  // 칩: 빈칸 채우기
+  document.querySelectorAll('.chips[data-target]').forEach(function(group){
+    var ta = document.getElementById(group.dataset.target);
+    var mode = group.dataset.mode || 'hero';
+    group.querySelectorAll('.chip').forEach(function(chip){
+      chip.addEventListener('click', function(){
+        group.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+        chip.setAttribute('aria-pressed','true');
+        var f = chip.dataset.fill;
+        if(mode === 'all'){ ta.value = f; }
+        else if(mode === 'slot'){ ta.value = ta.dataset.template.split(group.dataset.slot).join(f); }
+        else { ta.value = f + '\n' + ta.dataset.tail; }   // hero · line1: 첫 줄 바꾸기
+        grow(ta);
+      });
+    });
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){ copyText(document.getElementById(b.dataset.copy).value); });
+  });
+  document.querySelectorAll('[data-copytext]').forEach(function(b){
+    b.addEventListener('click', function(){ copyText(b.dataset.copytext); });
+  });
+
+  // 접힌 칸을 열면 입력 상자 높이 다시 맞추기
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle', function(){ d.querySelectorAll('.prompt textarea').forEach(grow); });
+  });
+  // 화면 그림은 누르면 크게
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(){ window.open(img.getAttribute('src'), '_blank'); });
+  });
+
+  // 진행 체크 (이 브라우저에만 저장)
+  function refresh(){
+    var n = 0;
+    ['s1','s2','s3'].forEach(function(k){
+      var on = store.get(k) === '1';
+      if(on) n++;
+      var b = document.querySelector('.done[data-step="'+k+'"]');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? '해 봤어요 ✓' : '해 봤어요';
+      document.querySelector('[data-dot="'+k+'"]').classList.toggle('on', on);
+    });
+    document.getElementById('cnt').textContent = n;
+  }
+  document.querySelectorAll('.done').forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.dataset.step; var on = store.get(k) === '1';
+      store.set(k, on ? '0' : '1');
+      refresh();
+      if(!on) toast('잘하셨어요!');
+    });
+  });
+  refresh();
+
+  // 글자 크기
+  var scale = parseFloat(store.get('scale') || '1') || 1;
+  function applyScale(){ document.documentElement.style.setProperty('--scale', scale); document.querySelectorAll('.prompt textarea').forEach(grow); }
+  applyScale();
+  document.querySelectorAll('[data-font]').forEach(function(b){
+    b.addEventListener('click', function(){
+      scale = Math.min(1.5, Math.max(0.9, Math.round((scale + 0.1 * parseInt(b.dataset.font,10)) * 10) / 10));
+      store.set('scale', String(scale)); applyScale();
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -51,6 +51,9 @@ h1{font-size:1.25rem; line-height:1.35; color:var(--ink-1); margin:6px 0 6px; fo
 .copy{position:absolute; right:10px; bottom:10px; font:inherit; font-size:1rem; font-weight:700; color:var(--surface); background:var(--accent);
   border:0; border-radius:10px; padding:9px 16px; min-height:40px; cursor:pointer}
 .hint{font-size:.8125rem; color:var(--ink-3); margin:0}
+.path{margin:0 0 4px; color:var(--ink-1)}
+.block figure{margin:12px 0 0}
+.dots i{width:22px}
 
 /* 진행 */
 .progress{display:flex; align-items:center; gap:12px; margin:28px 0 8px}
@@ -140,14 +143,14 @@ footer p{margin:4px 0}
 <header class="top">
   <div class="eyebrow">전남대학교 AI 시민 아카데미 · 2026.11.11 · 김덕진</div>
   <h1>AI시대의 생존법:<br>알아두면 쓸모 있는 AI</h1>
-  <p class="lead">강의에서 본 실습을 집에서 그대로 따라 하는 페이지입니다. 무료 계정이면 충분합니다.</p>
+  <p class="lead">강의에서 같이 해 본 것을 집에서 그대로 따라 하는 페이지입니다. 챗GPT 무료 계정이면 충분합니다.</p>
 </header>
 
 <!-- 1층: 오늘 밤 딱 하나 -->
 <section class="hero" aria-labelledby="hero-t">
   <span class="tag">오늘 밤 딱 하나</span>
   <h2 id="hero-t">내 일 한 줄, AI에게 맡겨 보세요</h2>
-  <p>내 자리를 고르면 문장이 채워집니다. 복사해서 챗GPT · 제미나이 · 클로드 아무 곳에나 붙여 넣으세요.</p>
+  <p>내 자리를 고르면 문장이 채워집니다. 복사해서 챗GPT에 붙여 넣으세요.</p>
   <p class="chips-label">나는</p>
   <div class="chips" data-target="p-hero">
     <button class="chip" data-fill="나는 전남대 2학년입니다. 기말 조별 발표 역할 나누기를 하려고 해요.">학생</button>
@@ -165,32 +168,127 @@ footer p{margin:4px 0}
 
 <!-- 2층: 진행 -->
 <div class="progress" aria-live="polite">
-  <strong>따라 하기 <span id="cnt">0</span> / 3</strong>
-  <div class="dots" aria-hidden="true"><i data-dot="s1"></i><i data-dot="s2"></i><i data-dot="s3"></i></div>
+  <strong>따라 하기 <span id="cnt">0</span> / 5</strong>
+  <div class="dots" aria-hidden="true"><i data-dot="s1"></i><i data-dot="s2"></i><i data-dot="s3"></i><i data-dot="s4"></i><i data-dot="s5"></i></div>
 </div>
 
-<!-- ① 챗GPT -->
 <section class="step" id="s1">
+  <div class="step-head"><div class="num">1</div><div><h3>말로 걸어 보기</h3><p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> 앱 · 무료</p></div></div>
+
+  <div class="block"><h4>글 쓰는 칸 오른쪽, 버튼 두 개</h4>
+    <ul class="tips">
+      <li><b>마이크 모양:</b> 누르고 말하면 글자로 받아 적어 줍니다. 내가 한 말을 보고 고칠 수 있습니다.</li>
+      <li><b>소리 파동 모양:</b> 전화 통화처럼 말로 주고받습니다. 중간에 "아니, 그거 말고" 하고 끼어들어도 됩니다.</li>
+    </ul></div>
+  <div class="block"><h4>마이크를 누르고 그대로 읽어 보세요</h4>
+    <div class="chips" data-target="p-v1" data-mode="all"><button class="chip" data-fill="안녕? 나는 광주에 사는 ○○○이야. 너는 나한테 어떤 도움을 줄 수 있는지, 아주 쉽게 세 가지만 알려 줘.">첫 인사</button><button class="chip" data-fill="오늘 저녁 반찬이 고민이야. 냉장고에 두부, 애호박, 계란이 있어. 30분 안에 만들 수 있는 반찬 두 가지만 알려 줘.">오늘 반찬</button><button class="chip" data-fill="우리 모임 회의에서 나온 얘기를 두서없이 말할게. 다 들은 뒤에 정한 것, 할 일, 누가 할지로 나눠서 정리해 줘.">두서없이 말하기</button></div>
+    <div class="prompt"><textarea id="p-v1" rows="4" aria-label="말로 걸 문장">안녕? 나는 광주에 사는 ○○○이야. 너는 나한테 어떤 도움을 줄 수 있는지, 아주 쉽게 세 가지만 알려 줘.</textarea><button class="copy" data-copy="p-v1">복사</button></div>
+  </div>
+  <div class="block"><h4>답이 마음에 안 들면, 이어서 한마디</h4>
+    <div class="line-copy"><span>더 짧게 세 줄로</span><button data-copytext="더 짧게 세 줄로">복사</button></div><div class="line-copy"><span>더 쉽게 말해 줘</span><button data-copytext="더 쉽게 말해 줘">복사</button></div><div class="line-copy"><span>다른 걸로 하나 더</span><button data-copytext="다른 걸로 하나 더">복사</button></div>
+    <ul class="tips" style="margin-top:12px">
+      <li>식당에서 "덜 맵게 해 주세요" 하듯이 계속 주문하면 됩니다.</li>
+      <li>말로 나눈 대화는 끝나면 채팅에 글로 남습니다. 무료 계정은 음성 대화에 하루 한도가 있습니다.</li>
+    </ul></div>
+
+  <button class="done" data-step="s1" aria-pressed="false">해 봤어요</button>
+</section>
+
+<section class="step" id="s2">
+  <div class="step-head"><div class="num">2</div><div><h3>내 챗GPT 설정 세 가지</h3><p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> 앱 → 왼쪽 위 메뉴 → 맨 아래 내 이름 · 한 번만 해 두면 됩니다</p></div></div>
+
+  <div class="block"><h4>① 학습에 쓰지 않게</h4>
+    <p class="path">설정 → 기록 및 데이터 → <b>'모두를 위한 모델 개선' 끄기</b></p>
+    <p class="hint">앱 버전에 따라 메뉴 이름이 '데이터 제어'일 수 있습니다.</p>
+    <figure><img src="img/set_1_training.png" alt="챗GPT 앱 설정에서 모두를 위한 모델 개선을 끄는 순서" loading="lazy" width="1100" height="575"><figcaption>메뉴 → 내 이름 → 기록 및 데이터 → 맨 위 스위치 끄기</figcaption></figure></div>
+  <div class="block"><h4>② 메모리 확인</h4>
+    <p class="path">설정 → 메모리 → <b>'메모리 요약' 열어 보기</b></p>
+    <p class="hint">AI가 나에 대해 기억하는 내용이 적혀 있습니다. 남기기 싫은 내용은 지우고, 필요하면 메모리를 끕니다.</p>
+    <figure><img src="img/set_2_memory.png" alt="챗GPT 앱 설정에서 메모리 요약을 여는 순서" loading="lazy" width="1100" height="576"><figcaption>메뉴 → 내 이름 → 메모리 → 메모리 요약</figcaption></figure></div>
+  <div class="block"><h4>③ 임시 채팅</h4>
+    <p class="path">대화창 오른쪽 위 아이콘 → <b>임시 채팅</b></p>
+    <p class="hint">대화 목록과 메모리에 남지 않습니다. 다만 안전 확인용으로 최대 30일 보관될 수 있으니, 임시 채팅에도 주민번호·계좌 같은 개인정보는 넣지 않습니다.</p>
+    <figure><img src="img/set_3_temp.png" alt="챗GPT 앱에서 임시 채팅을 켜는 순서" loading="lazy" width="1100" height="565"><figcaption>오른쪽 위 아이콘 → 임시 채팅</figcaption></figure></div>
+  <div class="block"><h4>하나 더: 사용자 지침 써 두기</h4>
+    <p class="hint" style="margin-bottom:8px">프로필 → 개인 설정 → 개인 맞춤 설정. 한 번 써 두면 모든 대화에 적용됩니다.</p>
+    <div class="chips" data-target="p-inst" data-mode="all"><button class="chip" data-fill="나는 광주에 사는 60대야. 답은 핵심 세 줄로 먼저 말하고, 자세한 건 그 다음에 써 줘. 어려운 말과 영어는 괄호로 풀어 줘. 날짜·금액·전화번호는 어디서 나온 정보인지 함께 알려 줘.">60대 시민</button><button class="chip" data-fill="나는 대학교 2학년이야. 답은 핵심 세 줄로 먼저 말하고, 예시는 내 전공으로 들어 줘. 모르는 내용은 모른다고 말하고, 숫자와 날짜는 어디서 나온 정보인지 함께 알려 줘.">대학생</button><button class="chip" data-fill="나는 사무직 직장인이야. 답은 결론부터 세 줄로, 필요하면 표로 정리해 줘. 모르는 숫자는 '확인 필요'라고 적어 줘.">직장인</button><button class="chip" data-fill="나는 작은 가게를 하는 사장이야. 답은 쉬운 말로 세 줄 먼저, 바로 쓸 수 있는 문장으로 써 줘. 가격·날짜는 내가 준 것만 쓰고, 없으면 물어봐 줘.">사장님</button></div>
+    <div class="prompt"><textarea id="p-inst" rows="5" aria-label="사용자 지침 문장">나는 광주에 사는 60대야. 답은 핵심 세 줄로 먼저 말하고, 자세한 건 그 다음에 써 줘. 어려운 말과 영어는 괄호로 풀어 줘. 날짜·금액·전화번호는 어디서 나온 정보인지 함께 알려 줘.</textarea><button class="copy" data-copy="p-inst">복사</button></div>
+  </div>
+  <div class="block"><h4>해 볼 만한 놀이</h4>
+    <div class="line-copy"><span>네가 나에 대해 알고 있는 걸 바탕으로 동물을 한 마리 그려 주고, 왜 그렇게 그렸는지 설명해 줘.</span><button data-copytext="네가 나에 대해 알고 있는 걸 바탕으로 동물을 한 마리 그려 주고, 왜 그렇게 그렸는지 설명해 줘.">복사</button></div>
+    <p class="hint" style="margin-top:8px">나를 잘 아는 AI는 편합니다. 그만큼 내 정보가 쌓여 있다는 뜻이니 가끔 열어 보세요. 화면은 강사 계정(유료)이라 무료 계정은 메뉴 모양이 조금 다를 수 있습니다.</p></div>
+
+  <button class="done" data-step="s2" aria-pressed="false">해 봤어요</button>
+</section>
+
+<section class="step" id="s3">
+  <div class="step-head"><div class="num">3</div><div><h3>깊이 생각하게 하기 (싱크)</h3><p class="where">어디서: 입력창 왼쪽 ＋ → <b>더 깊이 생각하기</b> · 컴퓨터는 입력창 오른쪽 Think</p></div></div>
+
+  <div class="block"><h4>이럴 때 켜세요</h4>
+    <ul class="tips">
+      <li>조건이 여러 개일 때, 계산이나 비교가 필요할 때, 한 번 틀리면 고치기 번거로울 때.</li>
+      <li>간단한 질문, 번역, 맞춤법에는 끄는 편이 빠릅니다.</li>
+      <li>무료 계정은 <b>새 채팅을 열면 다시 꺼집니다.</b> 필요할 때마다 켜세요.</li>
+    </ul></div>
+  <div class="block"><h4>켜고 나서 맡겨 볼 일</h4>
+    <div class="chips" data-target="p-th" data-mode="all"><button class="chip" data-fill="부모님(70대)과 초등학생 아이가 함께 가는 여수 1박 2일 일정을 짜 줘.
+- 광주에서 오전 9시 출발, 다음 날 오후 6시까지 돌아오기
+- 부모님은 한 번에 30분 이상 걷기 어려움
+- 아이는 오후 2시쯤 쉬는 시간 필요
+- 하루 차 이동은 2시간 이내
+표로 주고, 조건을 다 지켰는지 마지막에 확인해 줘.">가족 여행</button><button class="chip" data-fill="다음 주 기말 공부 시간표를 짜 줘.
+- 과목은 [과목 3개], 시험은 [요일]
+- 평일은 저녁 7~11시만 가능
+- 한 과목을 하루 2시간 넘게 하지 않게
+- 시험 전날은 그 과목만
+표로 주고, 조건을 다 지켰는지 마지막에 확인해 줘.">공부 시간표</button><button class="chip" data-fill="다음 달 우리 가게 근무표를 짜 줘.
+- 평일 점심 11~14시는 2명 필요
+- 매주 화요일은 휴무
+- 직원 A는 주 3일만, 직원 B는 주말 불가
+- 한 사람이 6일 연속 일하지 않게
+표로 주고, 조건을 다 지켰는지 마지막에 확인해 줘.">가게 근무표</button></div>
+    <div class="prompt"><textarea id="p-th" rows="8" aria-label="깊이 생각하기 문장">부모님(70대)과 초등학생 아이가 함께 가는 여수 1박 2일 일정을 짜 줘.
+- 광주에서 오전 9시 출발, 다음 날 오후 6시까지 돌아오기
+- 부모님은 한 번에 30분 이상 걷기 어려움
+- 아이는 오후 2시쯤 쉬는 시간 필요
+- 하루 차 이동은 2시간 이내
+표로 주고, 조건을 다 지켰는지 마지막에 확인해 줘.</textarea><button class="copy" data-copy="p-th">복사</button></div>
+    <p class="hint">[ ] 자리와 조건은 내 사정에 맞게 고쳐 쓰세요. 마지막 줄 "조건을 다 지켰는지 확인해 줘"가 핵심입니다.</p>
+  </div>
+  <details class="real"><summary>화면으로 보기: 어디서 켜나요</summary><div class="real-body">
+    <p class="hint" style="margin-bottom:12px">그림을 누르면 크게 볼 수 있어요.</p>
+    <div class="grid2">
+      <figure><img src="img/think_1_plus.png" alt="입력창 왼쪽 더하기 메뉴의 더 깊이 생각하기" loading="lazy" width="460" height="428"><figcaption><b>①</b> ＋ → 더 깊이 생각하기</figcaption></figure>
+      <figure><img src="img/think_2_on.png" alt="입력창에 계기판 모양이 생긴 화면" loading="lazy" width="460" height="365"><figcaption><b>②</b> 계기판 모양 = 켜짐</figcaption></figure>
+    </div>
+    <div style="margin-top:20px"><figure><img src="img/think_0_pc.png" alt="컴퓨터 화면 입력창 오른쪽의 Think 단추, 꺼진 상태와 켠 상태" loading="lazy" width="785" height="152"><figcaption><b>컴퓨터 화면.</b> 입력창 오른쪽 Think 단추. 위는 꺼진 상태, 아래는 켠 상태입니다.</figcaption></figure></div>
+    <p class="hint">챗GPT 무료 계정 · 2026년 11월 4일 강사 촬영 · 유료 계정은 켜고 끄는 대신 생각의 깊이를 막대로 고릅니다</p>
+  </div></details>
+
+  <button class="done" data-step="s3" aria-pressed="false">해 봤어요</button>
+</section>
+
+<section class="step" id="s4">
   <div class="step-head">
-    <div class="num">1</div>
+    <div class="num">4</div>
     <div>
       <h3>AI가 먼저 묻게 하기 (ABA)</h3>
-      <p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> · 제미나이 · 클로드 아무거나 · 무료</p>
+      <p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> · 무료 (제미나이 · 클로드에서도 됩니다)</p>
     </div>
   </div>
 
   <div class="block">
     <h4>따라 할 문장</h4>
-    <div class="chips" data-target="p-s1" data-mode="line1">
+    <div class="chips" data-target="p-s4" data-mode="line1">
       <button class="chip" data-fill="기말 발표 자료를 만들려고 해요.">학생</button>
       <button class="chip" data-fill="연말 송년회 공지를 쓰려고 해요.">직장인 · 교직원</button>
       <button class="chip" data-fill="단골손님께 연말 문자를 보내려고 해요.">사장님</button>
       <button class="chip" data-fill="주말에 아이와 갈 광주 나들이를 짜려고 해요.">부모님</button>
     </div>
     <div class="prompt">
-      <textarea id="p-s1" rows="4" aria-label="ABA 문장" data-tail="바로 답하지 말고, 좋은 결과를 만드는 데 꼭 필요한 질문을 먼저 3개만 해 주세요.">[하고 싶은 일]을 하려고 해요.
+      <textarea id="p-s4" rows="4" aria-label="ABA 문장" data-tail="바로 답하지 말고, 좋은 결과를 만드는 데 꼭 필요한 질문을 먼저 3개만 해 주세요.">[하고 싶은 일]을 하려고 해요.
 바로 답하지 말고, 좋은 결과를 만드는 데 꼭 필요한 질문을 먼저 3개만 해 주세요.</textarea>
-      <button class="copy" data-copy="p-s1">복사</button>
+      <button class="copy" data-copy="p-s4">복사</button>
     </div>
   </div>
 
@@ -219,18 +317,69 @@ footer p{margin:4px 0}
     </div>
   </details>
 
-  <button class="done" data-step="s1" aria-pressed="false">해 봤어요</button>
+  <button class="done" data-step="s4" aria-pressed="false">해 봤어요</button>
 </section>
 
-<!-- ② 클로드 -->
-<section class="step" id="s2">
-  <div class="step-head">
-    <div class="num">2</div>
-    <div>
-      <h3>말로 부탁해서 작은 앱 만들기</h3>
-      <p class="where">어디서: <a href="https://claude.ai" target="_blank" rel="noopener">클로드</a> (claude.ai · 앱) · 무료로 시작</p>
-    </div>
+
+<section class="step" id="s5">
+  <div class="step-head"><div class="num">5</div><div><h3>그림 한 장 그려 보기</h3><p class="where">어디서: <a href="https://chatgpt.com" target="_blank" rel="noopener">챗GPT</a> · 무료 계정은 하루에 몇 장만 됩니다</p></div></div>
+
+  <div class="block"><h4>따라 할 문장</h4>
+    <div class="chips" data-target="p-dr" data-mode="all"><button class="chip" data-fill="옛 수묵 산수화 느낌으로, 2026년 가을 광주 무등산 풍경을 그려 줘. 서석대 주상절리와 억새가 보이게, 먹색과 옅은 색으로, 가로로 길게.">수묵화 무등산</button><button class="chip" data-fill="여덟 살 조카 생일 카드에 넣을 그림을 그려 줘. 귀여운 공룡이 생일 케이크를 들고 웃고 있는 모습, 밝은 색으로, 글자는 넣지 말고.">생일 카드</button><button class="chip" data-fill="(내 얼굴 사진을 올리고) 이 사진 속 사람을 따뜻한 동화책 그림처럼 바꿔 줘. 얼굴 느낌은 그대로, 배경은 가을 공원으로.">내 사진을 동화책 그림으로</button><button class="chip" data-fill="(종이에 대충 그린 배치 그림을 찍어 올리고) 이 그림 배치대로 '[행사 이름]' 세로 포스터를 만들어 줘. 따뜻한 가을 분위기로. 그림 속 괄호 안 글자는 설명이니 넣지 마.">손그림을 포스터로</button></div>
+    <div class="prompt"><textarea id="p-dr" rows="5" aria-label="그림 부탁 문장">옛 수묵 산수화 느낌으로, 2026년 가을 광주 무등산 풍경을 그려 줘. 서석대 주상절리와 억새가 보이게, 먹색과 옅은 색으로, 가로로 길게.</textarea><button class="copy" data-copy="p-dr">복사</button></div>
   </div>
+  <div class="block"><h4>나온 그림은 말로 고칩니다</h4>
+    <div class="line-copy"><span>색을 조금 더 밝게</span><button data-copytext="색을 조금 더 밝게">복사</button></div><div class="line-copy"><span>해 질 녘 노을로</span><button data-copytext="해 질 녘 노을로">복사</button></div><div class="line-copy"><span>글자는 빼고</span><button data-copytext="글자는 빼고">복사</button></div>
+    <ul class="tips" style="margin-top:12px">
+      <li>무료는 하루 장수가 정해져 있으니 <b>한 장을 정성껏</b> 부탁하세요. 다 쓰면 내일 다시 됩니다.</li>
+      <li>사진은 입력칸 왼쪽 ＋ 버튼으로 올립니다. <b>다른 사람 얼굴 사진은 올리지 않습니다.</b></li>
+      <li>포스터 속 날짜·전화번호·QR은 가짜일 수 있습니다. 쓰기 전에 직접 확인하세요.</li>
+    </ul></div>
+  <details class="real"><summary>강사가 실제로 한 화면 보기</summary><div class="real-body">
+    <figure><img src="img/gpt_5_draw.jpg" alt="챗GPT가 그린 수묵화풍 무등산 서석대와 억새" loading="lazy" width="800" height="516"><figcaption><b>같은 문장으로 그린 결과.</b> 서석대 주상절리와 억새, 한자 글씨까지 넣어 줬습니다. AI가 그린 풍경은 실제 모습과 다를 수 있습니다.</figcaption></figure>
+    <p class="hint">챗GPT 무료 계정 · 2026년 11월 11일 강사 실행</p>
+  </div></details>
+
+  <button class="done" data-step="s5" aria-pressed="false">해 봤어요</button>
+</section>
+
+<!-- 3층: 이럴 땐 이것 -->
+<section class="sec" aria-labelledby="t-tool">
+  <h2 id="t-tool">이럴 땐 이것</h2>
+  <p class="sub">내 일에서 챗GPT 기능으로 · 지시서에 넣는 이 한 줄은 도구가 바뀌어도 남습니다</p>
+  <div class="rows">
+    <div class="row"><div class="who">학생</div>
+      <dl><dt>이런 일</dt><dd>강의 자료 복습 · 발표 준비</dd><dt>켤 기능</dt><dd>싱크 · 사진 올리기</dd></dl>
+      <div class="line-copy"><span>자료에 없는 내용은 없다고 말해 줘</span><button data-copytext="자료에 없는 내용은 없다고 말해 줘">복사</button></div></div>
+    <div class="row"><div class="who">직장인 · 교직원</div>
+      <dl><dt>이런 일</dt><dd>보고서 · 공지 · 표 정리</dd><dt>켤 기능</dt><dd>싱크 · 임시 채팅</dd></dl>
+      <div class="line-copy"><span>모르는 숫자는 '확인 필요'라고 적어 줘</span><button data-copytext="모르는 숫자는 '확인 필요'라고 적어 줘">복사</button></div></div>
+    <div class="row"><div class="who">사장님</div>
+      <dl><dt>이런 일</dt><dd>손님 문자 · 리뷰 답글 · 포스터</dd><dt>켤 기능</dt><dd>마이크 · 이미지</dd></dl>
+      <div class="line-copy"><span>바로 쓰지 말고 먼저 물어봐 줘</span><button data-copytext="바로 쓰지 말고 먼저 물어봐 줘">복사</button></div></div>
+    <div class="row"><div class="who">부모님 · 어르신</div>
+      <dl><dt>이런 일</dt><dd>오늘 반찬 · 안내문 읽기 · 생일 카드</dd><dt>켤 기능</dt><dd>음성 대화 · 사진 찍어 묻기</dd></dl>
+      <div class="line-copy"><span>중학생도 알아듣게 세 줄로</span><button data-copytext="중학생도 알아듣게 세 줄로">복사</button></div></div>
+  </div>
+</section>
+
+<!-- 지켜 주세요 -->
+<section class="sec" aria-labelledby="t-safe">
+  <h2 id="t-safe">이것만은 지켜 주세요</h2>
+  <p class="sub">AI와 오래 가는 세 가지 약속</p>
+  <div class="safety">
+    <div class="row"><b>넣지 말 것</b><p>주민번호 · 계좌 · 비밀번호, 남의 개인정보. 민감한 질문은 임시 채팅으로.</p></div>
+    <div class="row"><b>원문에서 확인할 것</b><p>숫자 · 날짜 · 법 · 지원금 조건은 출처를 눌러 원문으로. AI 답은 출발점입니다.</p></div>
+    <div class="row"><b>맞장구에 속지 말 것</b><p>듣기 좋은 말일수록 한 번 더. "반대 의견과 약점도 말해 줘."</p></div>
+  </div>
+  <p class="note">결제 · 송금 · 발송 버튼만큼은 끝까지 내 손에 쥐고 계세요.</p>
+</section>
+
+<section class="sec" aria-labelledby="t-next">
+  <h2 id="t-next">챗GPT가 손에 익으면</h2>
+  <p class="sub">다음 도구 두 가지 · 오늘 배운 지시서 한 줄은 그대로 통합니다</p>
+<details class="more"><summary>클로드: 말로 부탁해서 작은 앱 만들기</summary><div class="more-body">
+<p class="where">어디서: <a href="https://claude.ai" target="_blank" rel="noopener">클로드</a> (claude.ai · 앱) · 무료로 시작</p>
 
   <div class="block">
     <h4>따라 할 문장</h4>
@@ -274,19 +423,11 @@ footer p{margin:4px 0}
       <p class="hint">클로드 · 2026년 11월 10일 강사 실행 · 손님 이름은 모두 가상</p>
     </div>
   </details>
+</div></details>
 
-  <button class="done" data-step="s2" aria-pressed="false">해 봤어요</button>
-</section>
 
-<!-- ③ 제미나이 노트북 -->
-<section class="step" id="s3">
-  <div class="step-head">
-    <div class="num">3</div>
-    <div>
-      <h3>내 자료만 넣고, 그 안에서만 답 받기</h3>
-      <p class="where">어디서: <a href="https://notebooklm.google.com" target="_blank" rel="noopener">제미나이 노트북</a> (옛 노트북LM) · 구글 계정 · 무료로 시작</p>
-    </div>
-  </div>
+<details class="more"><summary>제미나이 노트북: 내 자료 안에서만 답 받기</summary><div class="more-body">
+<p class="where">어디서: <a href="https://notebooklm.google.com" target="_blank" rel="noopener">제미나이 노트북</a> (옛 노트북LM) · 구글 계정 · 무료로 시작</p>
 
   <div class="block">
     <h4>순서</h4>
@@ -338,40 +479,9 @@ footer p{margin:4px 0}
       <p class="hint">제미나이 노트북 · 2026년 11월 10일 강사 실행</p>
     </div>
   </details>
+</div></details>
 
-  <button class="done" data-step="s3" aria-pressed="false">해 봤어요</button>
-</section>
 
-<!-- 3층: 이럴 땐 이것 -->
-<section class="sec" aria-labelledby="t-tool">
-  <h2 id="t-tool">이럴 땐 이것</h2>
-  <p class="sub">도구는 바뀌어도, 지시서에 넣는 이 한 줄은 남습니다</p>
-  <div class="rows">
-    <div class="row"><div class="who">학생</div>
-      <dl><dt>이런 일</dt><dd>강의 자료 복습 · 발표 준비</dd><dt>도구</dt><dd>제미나이 노트북 · 챗GPT</dd></dl>
-      <div class="line-copy"><span>자료에 없는 내용은 없다고 말해 줘</span><button data-copytext="자료에 없는 내용은 없다고 말해 줘">복사</button></div></div>
-    <div class="row"><div class="who">직장인 · 교직원</div>
-      <dl><dt>이런 일</dt><dd>보고서 · 공지 · 엑셀 정리</dd><dt>도구</dt><dd>챗GPT · 클로드</dd></dl>
-      <div class="line-copy"><span>모르는 숫자는 '확인 필요'라고 적어 줘</span><button data-copytext="모르는 숫자는 '확인 필요'라고 적어 줘">복사</button></div></div>
-    <div class="row"><div class="who">사장님</div>
-      <dl><dt>이런 일</dt><dd>손님 문자 · 리뷰 답글 · 포스터</dd><dt>도구</dt><dd>챗GPT · 챗GPT 이미지</dd></dl>
-      <div class="line-copy"><span>바로 쓰지 말고 먼저 물어봐 줘</span><button data-copytext="바로 쓰지 말고 먼저 물어봐 줘">복사</button></div></div>
-    <div class="row"><div class="who">부모님 · 어르신</div>
-      <dl><dt>이런 일</dt><dd>냉장고 요리 · 사기 수법 안내문</dd><dt>도구</dt><dd>제미나이 라이브 · 딥 리서치</dd></dl>
-      <div class="line-copy"><span>중학생도 알아듣게 세 줄로</span><button data-copytext="중학생도 알아듣게 세 줄로">복사</button></div></div>
-  </div>
-</section>
-
-<!-- 지켜 주세요 -->
-<section class="sec" aria-labelledby="t-safe">
-  <h2 id="t-safe">이것만은 지켜 주세요</h2>
-  <p class="sub">AI와 오래 가는 세 가지 약속</p>
-  <div class="safety">
-    <div class="row"><b>넣지 말 것</b><p>주민번호 · 계좌 · 비밀번호, 남의 개인정보. 민감한 질문은 임시 채팅으로.</p></div>
-    <div class="row"><b>원문에서 확인할 것</b><p>숫자 · 날짜 · 법 · 지원금 조건은 출처를 눌러 원문으로. AI 답은 출발점입니다.</p></div>
-    <div class="row"><b>맞장구에 속지 말 것</b><p>듣기 좋은 말일수록 한 번 더. "반대 의견과 약점도 말해 줘."</p></div>
-  </div>
-  <p class="note">결제 · 송금 · 발송 버튼만큼은 끝까지 내 손에 쥐고 계세요.</p>
 </section>
 
 <!-- 더 해 보기 -->
@@ -419,7 +529,7 @@ footer p{margin:4px 0}
 </section>
 
 <footer>
-  <p>화면은 강사가 2026년 11월 10일 직접 실행한 실제 화면입니다(챗GPT는 무료 계정). 손님 이름은 모두 가상입니다.</p>
+  <p>화면은 강사가 2026년 10~11월에 직접 실행하고 찍은 실제 화면입니다(챗GPT 실습은 무료 계정, 설정 화면은 유료 계정). 손님 이름은 모두 가상입니다.</p>
   <p>서비스 화면과 무료 범위는 바뀔 수 있습니다.</p>
   <p>김덕진 · IT커뮤니케이션연구소 · <a href="https://open.kakao.com/o/gQiVg8Bh" target="_blank" rel="noopener">김덕진의 AI 큐레이션 오픈카톡방</a></p>
 </footer>
@@ -436,8 +546,8 @@ footer p{margin:4px 0}
 (function(){
   var mem = {};   // 저장이 막힌 브라우저에서도 이 화면 안에서는 동작
   var store = {
-    get:function(k){ try{ var v = localStorage.getItem('jnu1111_'+k); if(v !== null) return v; }catch(e){} return (k in mem) ? mem[k] : null; },
-    set:function(k,v){ mem[k] = v; try{ localStorage.setItem('jnu1111_'+k, v); }catch(e){} }
+    get:function(k){ try{ var v = localStorage.getItem('jnu1111v3_'+k); if(v !== null) return v; }catch(e){} return (k in mem) ? mem[k] : null; },
+    set:function(k,v){ mem[k] = v; try{ localStorage.setItem('jnu1111v3_'+k, v); }catch(e){} }
   };
   var toastEl = document.getElementById('toast'), tt;
   function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 1600); }
@@ -494,7 +604,7 @@ footer p{margin:4px 0}
   // 진행 체크 (이 브라우저에만 저장)
   function refresh(){
     var n = 0;
-    ['s1','s2','s3'].forEach(function(k){
+    ['s1','s2','s3','s4','s5'].forEach(function(k){
       var on = store.get(k) === '1';
       if(on) n++;
       var b = document.querySelector('.done[data-step="'+k+'"]');
